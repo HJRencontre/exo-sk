@@ -72,5 +72,5 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node_modules-
-      - run: cd frontend && npm run dist --if-present
+      - run: cd npm run dist --if-present
         name: Build dist
