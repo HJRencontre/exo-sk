@@ -130,7 +130,7 @@ const Movies: React.FC = () => {
   useEffect(() => {
     fetchMovies();
     fetchFilterValues();
-  }, [filter]);
+  }, [filter, fetchMovies, fetchFilterValues]);
 
   const handleMovieClick = (movieId: number) => {
     setSelectedMovieId(movieId);
