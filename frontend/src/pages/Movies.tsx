@@ -46,7 +46,7 @@ const SearchBar = ({
 const Movies: React.FC = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [setUsername] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
   const [movies, setMovies] = useState<MovieDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredMovies, setFilteredMovies] = useState<MovieDto[]>([]);
@@ -200,7 +200,7 @@ const Movies: React.FC = () => {
         <div className="register-prompt">
           <h1>
             Enregistrez-vous pour profiter au maximum de notre service de
-            bandes-annonces !
+            bandes-annonces ! {username}
           </h1>
           <button
             className="register-button"
