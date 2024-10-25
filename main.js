@@ -12,8 +12,7 @@ function createWindow() {
     },
   });
 
-  //mainWindow.loadFile(path.join(__dirname, "frontend", "build", "index.html")); // Charger le build React
-  mainWindow.loadURL("http://localhost:3000"); // Charger le build React
+  mainWindow.loadFile(path.join(__dirname, "frontend", "build", "index.html"));
 }
 
 app.whenReady().then(() => {
