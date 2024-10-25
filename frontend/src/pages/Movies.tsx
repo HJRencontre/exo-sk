@@ -129,7 +129,7 @@ const Movies: React.FC = () => {
 
   useEffect(() => {
     fetchMovies();
-  }, [filter]);
+  }, []);
 
   useEffect(() => {
     fetchMovies();
@@ -216,7 +216,6 @@ const Movies: React.FC = () => {
       </div>
     );
   }
-  return(<div>hello {username}</div>); // afficher ca a la fin de la premiere journée
   return (
     <>
       <Header />
