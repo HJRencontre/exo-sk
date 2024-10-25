@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Movies.css";
@@ -57,16 +57,15 @@ const Movies: React.FC = () => {
     return savedFilter
       ? JSON.parse(savedFilter)
       : {
-          year: new Date().getFullYear(),
-          genre: "28",
-          language: "fr",
-        };
+        year: new Date().getFullYear(),
+        genre: "28",
+        language: "fr",
+      };
   });
 
   const [genres, setGenres] = useState<Genre[]>([]);
   const [languages, setLanguages] = useState<Language[]>([]);
 
-  // useEffect c'est unen "fonction" qui s'execute au rafraichissement de la page
   useEffect(() => {
     const userLoggedIn = JSON.parse(
       localStorage.getItem("userLoggedIn") || "null"
@@ -76,9 +75,9 @@ const Movies: React.FC = () => {
       setIsLoggedIn(true);
       setUsername(userLoggedIn.username);
     }
-  }, []); // si la valeur de ce qu'il y a dans la variable change, le useEffect s'executera au moment ou la variable change de valeur 
+  }, []);
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       const { year, genre, language } = filter;
       const url = `${global.TMDB_API}/discover/movie?api_key=${global.API_KEY}&language=fr&with_original_language=${language}&primary_release_year=${year}&with_genres=${genre}`;
@@ -88,9 +87,9 @@ const Movies: React.FC = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [filter]);
 
-  const fetchFilterValues = async () => {
+  const fetchFilterValues = useCallback(async () => {
     const urlGenres = `${global.TMDB_API}/genre/movie/list?api_key=${global.API_KEY}&language=fr`;
     try {
       const res = await axios.get(urlGenres);
@@ -108,13 +107,11 @@ const Movies: React.FC = () => {
     } catch (e) {
       console.log(e);
     }
-  };
+  }, []);
 
   useEffect(() => {
     const filtered = movies.filter((movie) =>
       movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-      // ici filtered sera = tableau avec tous les films qui commence par le nom qu'on a donné
-      // si on cherche "scarface", filtered sera = a tout les films qui contiennent "scarface"
     );
     setFilteredMovies(filtered);
   }, [searchQuery, movies]);
