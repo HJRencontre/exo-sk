@@ -46,7 +46,7 @@ const SearchBar = ({
 const Movies: React.FC = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState<string | null>(null);
+  const [setUsername] = useState<string | null>(null);
   const [movies, setMovies] = useState<MovieDto[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredMovies, setFilteredMovies] = useState<MovieDto[]>([]);
@@ -130,7 +130,7 @@ const Movies: React.FC = () => {
   useEffect(() => {
     fetchMovies();
     fetchFilterValues();
-  }, []);
+  }, [filter]);
 
   const handleMovieClick = (movieId: number) => {
     setSelectedMovieId(movieId);
